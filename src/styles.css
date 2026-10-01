@@ -30,60 +30,184 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
   --color-surface: var(--surface);
-  --font-display: "Space Grotesk", system-ui, sans-serif;
+  --color-foam-cyan: var(--foam-cyan);
+  --color-foam-magenta: var(--foam-magenta);
+  --color-foam-lemon: var(--foam-lemon);
+  --font-display: "Archivo", system-ui, sans-serif;
   --font-sans: "Inter", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
 }
 
 :root {
-  --radius: 0.75rem;
-  --background: oklch(0.16 0.03 250);
-  --foreground: oklch(0.98 0.01 240);
-  --surface: oklch(0.21 0.035 250);
-  --card: oklch(0.21 0.035 250);
-  --card-foreground: oklch(0.98 0.01 240);
-  --popover: oklch(0.21 0.035 250);
-  --popover-foreground: oklch(0.98 0.01 240);
-  --primary: oklch(0.72 0.18 230);
-  --primary-foreground: oklch(0.15 0.03 250);
-  --secondary: oklch(0.28 0.04 250);
-  --secondary-foreground: oklch(0.98 0.01 240);
-  --muted: oklch(0.26 0.03 250);
-  --muted-foreground: oklch(0.72 0.02 250);
-  --accent: oklch(0.78 0.15 200);
-  --accent-foreground: oklch(0.15 0.03 250);
+  --radius: 0.5rem;
+
+  /* wet asphalt + chrome */
+  --background: oklch(0.14 0.015 260);
+  --foreground: oklch(0.96 0.008 250);
+  --surface: oklch(0.18 0.018 260);
+  --card: oklch(0.19 0.018 260);
+  --card-foreground: oklch(0.96 0.008 250);
+  --popover: oklch(0.19 0.018 260);
+  --popover-foreground: oklch(0.96 0.008 250);
+  --secondary: oklch(0.25 0.02 260);
+  --secondary-foreground: oklch(0.96 0.008 250);
+  --muted: oklch(0.23 0.018 260);
+  --muted-foreground: oklch(0.74 0.015 255);
+  --border: oklch(0.3 0.02 260);
+  --input: oklch(0.32 0.02 260);
+
+  /* triple-foam accents */
+  --foam-cyan: oklch(0.82 0.14 210);
+  --foam-magenta: oklch(0.7 0.25 340);
+  --foam-lemon: oklch(0.9 0.17 100);
+
+  --primary: var(--foam-cyan);
+  --primary-foreground: oklch(0.15 0.02 260);
+  --accent: var(--foam-lemon);
+  --accent-foreground: oklch(0.15 0.02 260);
   --destructive: oklch(0.65 0.22 25);
   --destructive-foreground: oklch(0.98 0.01 240);
-  --border: oklch(0.3 0.03 250);
-  --input: oklch(0.3 0.03 250);
-  --ring: oklch(0.72 0.18 230);
+  --ring: var(--foam-cyan);
 
-  --gradient-hero: linear-gradient(135deg, oklch(0.72 0.18 230) 0%, oklch(0.78 0.15 200) 100%);
-  --gradient-glow: radial-gradient(circle at 50% 0%, oklch(0.72 0.18 230 / 0.4), transparent 60%);
-  --shadow-glow: 0 20px 60px -20px oklch(0.72 0.18 230 / 0.5);
-  --shadow-card: 0 10px 40px -15px oklch(0 0 0 / 0.5);
+  --shadow-glow:
+    0 0 0 1px oklch(0.82 0.14 210 / 0.5), 0 12px 48px -12px oklch(0.82 0.14 210 / 0.55);
+  --shadow-card: 0 20px 50px -20px oklch(0 0 0 / 0.7);
 }
 
 @layer base {
-  * { border-color: var(--color-border); }
+  * {
+    border-color: var(--color-border);
+  }
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 7rem;
+  }
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
   }
-  h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: -0.02em; }
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-stretch: 125%;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+  }
 }
 
-@utility text-gradient {
-  background: var(--gradient-hero);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+/* ---------- utilities ---------- */
+
+@utility font-mono-num {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
 }
 
-@utility bg-grid {
+/* glowing LED sign text */
+@utility led-glow {
+  text-shadow: 0 0 12px color-mix(in oklch, currentColor 60%, transparent);
+}
+
+/* triple-foam stripe: cyan / magenta / lemon */
+@utility foam-stripe {
+  background: linear-gradient(
+    90deg,
+    var(--foam-cyan) 0 33.33%,
+    var(--foam-magenta) 33.33% 66.66%,
+    var(--foam-lemon) 66.66% 100%
+  );
+}
+
+/* wet specular highlight sweeping across a surface on hover */
+@utility wet-sheen {
+  position: relative;
+  overflow: hidden;
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(105deg, transparent 35%, oklch(1 0 0 / 0.16) 50%, transparent 65%);
+    transform: translateX(-120%);
+    transition: transform 0.9s ease;
+    pointer-events: none;
+  }
+  &:hover::after {
+    transform: translateX(120%);
+  }
+}
+
+/* rising foam bubbles (decorative, put on an absolutely-positioned layer) */
+@utility foam-bubbles {
   background-image:
-    linear-gradient(oklch(0.3 0.03 250 / 0.3) 1px, transparent 1px),
-    linear-gradient(90deg, oklch(0.3 0.03 250 / 0.3) 1px, transparent 1px);
-  background-size: 48px 48px;
+    radial-gradient(circle at 12% 100%, oklch(0.82 0.14 210 / 0.35) 0 6px, transparent 7px),
+    radial-gradient(circle at 28% 100%, oklch(0.7 0.25 340 / 0.3) 0 10px, transparent 11px),
+    radial-gradient(circle at 47% 100%, oklch(0.9 0.17 100 / 0.28) 0 5px, transparent 6px),
+    radial-gradient(circle at 63% 100%, oklch(0.82 0.14 210 / 0.3) 0 12px, transparent 13px),
+    radial-gradient(circle at 81% 100%, oklch(0.7 0.25 340 / 0.28) 0 7px, transparent 8px),
+    radial-gradient(circle at 93% 100%, oklch(0.9 0.17 100 / 0.25) 0 9px, transparent 10px);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  animation: foam-rise 14s linear infinite;
+}
+
+/* one-time squeegee wipe revealing an image */
+@utility squeegee-reveal {
+  animation: squeegee 1.4s cubic-bezier(0.65, 0, 0.35, 1) 0.2s both;
+}
+
+@keyframes foam-rise {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-110%);
+    opacity: 0;
+  }
+}
+
+@keyframes squeegee {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes led-flicker {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  92% {
+    opacity: 1;
+  }
+  93% {
+    opacity: 0.6;
+  }
+  94% {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .foam-bubbles,
+  .squeegee-reveal {
+    animation: none;
+  }
+  .wet-sheen::after {
+    transition: none;
+    display: none;
+  }
+  .animate-pulse {
+    animation: none;
+  }
 }
