@@ -8,7 +8,7 @@ export function Gallery() {
       <SectionHead
         tag="Results"
         title="The finish line"
-        sub="From foam bath to mirror finish. Drag the divider to wipe the car clean."
+        sub="Same car, one wash apart. Drag the divider to wipe away the grime."
       />
       <div className="mx-auto mt-14 max-w-5xl">
         <BeforeAfter />

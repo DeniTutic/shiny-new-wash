@@ -3,8 +3,8 @@ import touchlessImg from "@/assets/machine-touchless.jpg";
 import beadingImg from "@/assets/gallery-1.jpg";
 import wheelImg from "@/assets/gallery-wheel.jpg";
 import rinseImg from "@/assets/gallery-rinse.jpg";
-import foamImg from "@/assets/wash-foam.jpg";
-import finishImg from "@/assets/wash-finish.jpg";
+import beforeImg from "@/assets/before-dirty.jpg";
+import afterImg from "@/assets/after-clean.jpg";
 
 /**
  * The wash tunnel, as a scroll map. Each stage lights up while its section (or one of the
@@ -159,14 +159,10 @@ export const detailSteps = [
   "Odor neutralization & ozone treatment",
 ];
 
-/** Two stages of the wash for the wipe slider. Stock photos of two different cars, so not labelled before/after. */
+/** Same car, same angle, for the wipe slider. */
 export const beforeAfter = {
-  before: { src: foamImg, label: "Foam", alt: "Car covered in thick foam under the wash arch" },
-  after: {
-    src: finishImg,
-    label: "Finish",
-    alt: "Clean black car with headlights on in a dark garage",
-  },
+  before: { src: beforeImg, label: "Before", alt: "White SUV coupe covered in mud and road grime" },
+  after: { src: afterImg, label: "After", alt: "The same SUV coupe washed clean and glossy" },
 };
 
 export const galleryImgs = [
@@ -184,10 +180,6 @@ export const photoCredits = [
   {
     name: "Zulfahmi Khani",
     url: "https://unsplash.com/photos/water-fountain-in-the-middle-of-the-road-9gvFjMVS9A0",
-  },
-  {
-    name: "Chen",
-    url: "https://unsplash.com/photos/a-black-car-parked-in-a-parking-garage-p-NR7wul5TY",
   },
   {
     name: "Zac Nielson",

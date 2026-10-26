@@ -2,29 +2,29 @@ import { useState } from "react";
 import { ChevronsLeftRight } from "lucide-react";
 import { beforeAfter } from "@/data/site";
 
-/** Drag (or arrow-key) the divider to wipe between the foam and finish shots. */
+/** Drag (or arrow-key) the divider to wipe between the dirty and clean shot. */
 export function BeforeAfter() {
   const [pos, setPos] = useState(50);
   const { before, after } = beforeAfter;
   return (
     <div
-      className="relative overflow-hidden rounded-xl border border-border"
+      className="relative overflow-hidden rounded-xl border border-border bg-white"
       style={{ boxShadow: "var(--shadow-card)" }}
     >
       <img
         src={after.src}
         alt={after.alt}
         loading="lazy"
-        width={1536}
-        height={1024}
+        width={1200}
+        height={800}
         className="aspect-[3/2] w-full object-cover"
       />
       <img
         src={before.src}
         alt={before.alt}
         loading="lazy"
-        width={1536}
-        height={1024}
+        width={1200}
+        height={800}
         className="absolute inset-0 h-full w-full object-cover"
         style={{ clipPath: `inset(0 ${100 - pos}% 0 0)` }}
       />
