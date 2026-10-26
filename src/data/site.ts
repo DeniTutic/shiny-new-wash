@@ -90,16 +90,16 @@ export const plans: {
   accent: "cyan" | "magenta" | "lemon";
   popular?: boolean;
 }[] = [
-  { id: "express-unl", name: "Express Unlimited", price: 29, pkg: "express", accent: "cyan" },
+  { id: "express-unl", name: "Express Unlimited", price: 39, pkg: "express", accent: "cyan" },
   {
     id: "shine-unl",
     name: "Shine Unlimited",
-    price: 39,
+    price: 79,
     pkg: "shine",
     accent: "magenta",
     popular: true,
   },
-  { id: "ceramic-unl", name: "Ceramic Unlimited", price: 49, pkg: "ceramic", accent: "lemon" },
+  { id: "ceramic-unl", name: "Ceramic Unlimited", price: 159, pkg: "ceramic", accent: "lemon" },
 ];
 
 export const planPerks = [

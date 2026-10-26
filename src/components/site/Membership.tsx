@@ -18,7 +18,7 @@ export function Membership({
         <SectionHead
           tag="Membership"
           title="Wash unlimited"
-          sub="Wash twice a month and a plan already pays for itself. Both locations, as often as you like."
+          sub="Wash every week and a plan pays for itself. Both locations, as often as you like."
         />
         <div className="mt-14 grid gap-6 md:grid-cols-3">
           {plans.map((p) => {
