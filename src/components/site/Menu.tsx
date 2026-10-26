@@ -16,10 +16,13 @@ export function Menu({
       <SectionHead
         tag="Packages"
         title="Pick your wash"
-        sub="From a quick rinse to a concours-level detail. All cars, all sizes, all welcome."
+        sub="Tap a package to pick it, then add extras. Washing often? See unlimited plans below."
       />
       <div className="mt-14">
-        <MenuBoard selection={selection} onSelect={(pkg) => onChange((s) => ({ ...s, pkg }))} />
+        <MenuBoard
+          selection={selection}
+          onSelect={(pkg) => onChange((s) => ({ ...s, pkg, plan: undefined }))}
+        />
       </div>
       <div className="mt-8">
         <BuildYourWash selection={selection} onChange={onChange} />

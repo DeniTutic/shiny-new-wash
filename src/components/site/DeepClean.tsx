@@ -6,8 +6,8 @@ import { SectionHead } from "./SectionHead";
 
 export function DeepClean() {
   return (
-    <section id="detail" className="mx-auto max-w-7xl px-6 py-24">
-      <div className="grid items-center gap-12 lg:grid-cols-2">
+    <section id="detail" className="border-y border-border/60 bg-surface py-24">
+      <div className="mx-auto grid max-w-7xl items-center gap-12 px-6 lg:grid-cols-2">
         <div className="relative order-2 lg:order-1">
           <img
             src={deepCleanImg}

@@ -3,7 +3,7 @@ import { SectionHead } from "./SectionHead";
 
 export function Machines() {
   return (
-    <section id="machines" className="border-y border-border/60 bg-surface py-24">
+    <section id="machines" className="py-24">
       <div className="mx-auto max-w-7xl px-6">
         <SectionHead
           tag="The hardware"
@@ -19,7 +19,7 @@ export function Machines() {
               <div className="wet-sheen relative aspect-[4/3]">
                 <img
                   src={m.img}
-                  alt={m.name}
+                  alt={m.alt}
                   loading="lazy"
                   width={1280}
                   height={960}

@@ -30,7 +30,7 @@ export function MenuBoard({
             </th>
             {packages.map((p) => {
               const a = accentClass[p.accent];
-              const on = selection.pkg === p.id;
+              const on = !selection.plan && selection.pkg === p.id;
               return (
                 <th
                   key={p.id}
@@ -79,7 +79,7 @@ export function MenuBoard({
               </th>
               {packages.map((p) => {
                 const included = row.in.includes(p.id);
-                const on = selection.pkg === p.id;
+                const on = !selection.plan && selection.pkg === p.id;
                 return (
                   <td key={p.id} className={`px-5 py-3 ${on ? "bg-secondary" : ""}`}>
                     {included ? (
@@ -104,7 +104,7 @@ export function MenuBoard({
       <div className="divide-y divide-border/60 md:hidden">
         {packages.map((p) => {
           const a = accentClass[p.accent];
-          const on = selection.pkg === p.id;
+          const on = !selection.plan && selection.pkg === p.id;
           return (
             <div key={p.id} className={`p-5 ${on ? "bg-secondary" : ""}`}>
               <button

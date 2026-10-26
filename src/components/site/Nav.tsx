@@ -5,9 +5,11 @@ import { TunnelProgress } from "./TunnelProgress";
 
 const links = [
   { label: "Packages", href: "#menu" },
+  { label: "Membership", href: "#membership" },
   { label: "Machines", href: "#machines" },
   { label: "Detailing", href: "#detail" },
-  { label: "Gallery", href: "#gallery" },
+  { label: "Results", href: "#gallery" },
+  { label: "Reviews", href: "#reviews" },
 ];
 
 export function Nav() {
@@ -26,7 +28,7 @@ export function Nav() {
             Aqua Lux
           </span>
         </a>
-        <nav aria-label="Primary" className="hidden gap-8 md:flex">
+        <nav aria-label="Primary" className="hidden gap-7 lg:flex">
           {links.map((n) => (
             <a
               key={n.href}
@@ -43,7 +45,7 @@ export function Nav() {
           </Button>
           <button
             onClick={() => setOpen((o) => !o)}
-            className="grid h-10 w-10 place-items-center rounded-md text-foreground md:hidden"
+            className="grid h-10 w-10 place-items-center rounded-md text-foreground lg:hidden"
             aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
           >
@@ -52,7 +54,7 @@ export function Nav() {
         </div>
       </div>
       {open && (
-        <div className="space-y-1 border-t border-border/50 px-6 py-3 md:hidden">
+        <div className="space-y-1 border-t border-border/50 px-6 py-3 lg:hidden">
           {[...links, { label: "Book a wash", href: "#contact" }].map((n) => (
             <a
               key={n.href}

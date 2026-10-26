@@ -1,19 +1,31 @@
-import { addons, packages, type PackageId } from "@/data/site";
+import { addons, packages, plans, type PackageId, type PlanId } from "@/data/site";
 
-export type Selection = { pkg: PackageId; addons: string[] };
+/** A single-visit package, or a membership plan (which implies its base package). */
+export type Selection = { pkg: PackageId; addons: string[]; plan?: PlanId };
 
 export const defaultSelection: Selection = { pkg: "shine", addons: [] };
 
-export function totalFor(sel: Selection) {
-  const base = packages.find((p) => p.id === sel.pkg)?.price ?? 0;
-  const extra = addons.filter((a) => sel.addons.includes(a.id)).reduce((n, a) => n + a.price, 0);
-  return base + extra;
+export const planFor = (sel: Selection) => plans.find((p) => p.id === sel.plan);
+
+export function nameFor(sel: Selection) {
+  return planFor(sel)?.name ?? packages.find((p) => p.id === sel.pkg)?.name ?? "";
+}
+
+/** Add-ons are paid per visit, on top of a package or a plan. */
+function addonTotal(sel: Selection) {
+  return addons.filter((a) => sel.addons.includes(a.id)).reduce((n, a) => n + a.price, 0);
+}
+
+export function priceLabel(sel: Selection) {
+  const extra = addonTotal(sel);
+  const plan = planFor(sel);
+  if (plan) return extra ? `$${plan.price}/mo + $${extra}` : `$${plan.price}/mo`;
+  return `$${(packages.find((p) => p.id === sel.pkg)?.price ?? 0) + extra}`;
 }
 
 export function summaryFor(sel: Selection) {
-  const p = packages.find((x) => x.id === sel.pkg);
   const a = addons.filter((x) => sel.addons.includes(x.id)).map((x) => x.label);
-  return `${p?.name}${a.length ? " + " + a.join(", ") : ""} — $${totalFor(sel)}`;
+  return `${nameFor(sel)}${a.length ? " + " + a.join(", ") : ""} — ${priceLabel(sel)}`;
 }
 
 /** Static class maps so Tailwind can see every class name. */

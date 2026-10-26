@@ -5,22 +5,27 @@ import { stages } from "@/data/site";
 function useActiveStage() {
   const [active, setActive] = useState(0);
   useEffect(() => {
-    const els = stages.map((s) => document.getElementById(s.id));
-    const visible = new Set<number>();
+    // section element -> stage index
+    const stageOf = new Map<Element, number>();
+    stages.forEach((s, i) =>
+      [s.id, ...(s.covers ?? [])].forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) stageOf.set(el, i);
+      }),
+    );
+    const visible = new Set<Element>();
     const io = new IntersectionObserver(
       (entries) => {
         for (const e of entries) {
-          const i = els.indexOf(e.target as HTMLElement);
-          if (i < 0) continue;
-          if (e.isIntersecting) visible.add(i);
-          else visible.delete(i);
+          if (e.isIntersecting) visible.add(e.target);
+          else visible.delete(e.target);
         }
-        if (visible.size) setActive(Math.max(...visible));
+        if (visible.size) setActive(Math.max(...[...visible].map((el) => stageOf.get(el)!)));
       },
       // a section counts once it crosses the upper third of the viewport
       { rootMargin: "-120px 0px -60% 0px" },
     );
-    els.forEach((el) => el && io.observe(el));
+    stageOf.forEach((_, el) => io.observe(el));
     return () => io.disconnect();
   }, []);
   return active;
@@ -39,6 +44,7 @@ export function TunnelProgress() {
               <a
                 href={`#${s.id}`}
                 aria-current={current ? "location" : undefined}
+                title={`${s.label} · ${s.section}`}
                 className={`flex flex-col items-center gap-1 px-1 py-2 font-mono-num text-[10px] uppercase tracking-widest transition-colors sm:flex-row sm:justify-center sm:gap-2 sm:text-xs ${
                   current
                     ? "text-foam-cyan led-glow"
@@ -51,6 +57,7 @@ export function TunnelProgress() {
                   {String(i + 1).padStart(2, "0")}
                 </span>
                 <span>{s.label}</span>
+                <span className="sr-only"> — {s.section}</span>
               </a>
               <span
                 aria-hidden
